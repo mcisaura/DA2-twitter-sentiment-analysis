@@ -5,7 +5,7 @@ This project analyzes noisy Twitter text using classical NLP models on the Senti
 ## Project Contents
 
 - `SentimentsProject.ipynb`: main notebook for data loading, preprocessing, feature extraction, model training, tuning, and evaluation
-- `annotated-Official%20Proposal.pdf`: project proposal and contribution plan
+- `Project Proposal.pdf`: project proposal and contribution plan
 
 ## What The Notebook Covers
 
