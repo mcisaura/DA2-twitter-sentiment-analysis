@@ -19,13 +19,13 @@ Logistic Regression,false_positive,@MsKitty0303  your welcome,0,1,5.691776767090
 Logistic Regression,false_positive,I am finally home from my night out. It was fun fun &amp; bitter sweet   Everyone got home safe. Good night or shall I say Good Morning..hehe,0,1,5.680404720031643,False,False,False,True,False,False,False,False,False,False,False
 Logistic Regression,false_positive,@DuckDrake Thanks. ,0,1,5.256537228522024,False,True,False,False,False,False,False,False,False,False,False
 Logistic Regression,false_positive,@agustinaimi thanks ,0,1,5.256537228522024,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_positive,@thisisjulze goood luccck love *L( ,0,1,0.9951233603456756,False,True,False,True,False,False,False,False,False,False,False
-MLP Neural Baseline,false_positive,@MsKitty0303  your welcome,0,1,0.994771726677583,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_positive,I am finally home from my night out. It was fun fun &amp; bitter sweet   Everyone got home safe. Good night or shall I say Good Morning..hehe,0,1,0.9938013284947509,False,False,False,True,False,False,False,False,False,False,False
-MLP Neural Baseline,false_positive,@DuckDrake Thanks. ,0,1,0.9922177782938076,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_positive,@agustinaimi thanks ,0,1,0.9922177782938076,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_negative,"stars when they were in highschool,have fun  http://bit.ly/8ob2X",1,0,0.4999806389621918,True,False,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_negative,"@ljhaumea She is adorable. And it is terrible, but that she is enjoying it is all that really matters.  xoxoxo",1,0,0.49997670146147793,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_negative,@skibumbrian777 come for the pizza - stay for the 1919 root beer ,1,0,0.49995181801145316,False,True,False,True,False,False,False,False,False,False,False
-MLP Neural Baseline,false_negative,@ddllovato so could you please do that for me and all your fans? then we all can believe its you. and im sorry i acted like a freak b4 ,1,0,0.4999124230703249,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_negative,@ddlovato where in germany are you?? cause I live in frankfurt the city with the big airport ,1,0,0.4999103865596641,False,True,False,False,False,False,False,False,False,False,True
+MLP Neural Baseline,false_positive,@thisisjulze goood luccck love *L( ,0,1,0.9913553059035999,False,True,False,True,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,@DuckDrake Thanks. ,0,1,0.9908117832347795,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,@agustinaimi thanks ,0,1,0.9908117832347795,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,@IamSamL thanks ,0,1,0.9908117832347795,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,humf  thanks?,0,1,0.9908117832347795,False,False,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_negative,@ladyviv Oooooohey.. tell me more darling ,1,0,0.49999878089933547,False,True,False,True,False,False,False,False,False,False,False
+MLP Neural Baseline,false_negative,@rafaelesantos does this mean that we are going to all get macs ,1,0,0.4999615531093085,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_negative,"@WatariGoro Yep. I hope my lame attempt with the spaces helped me to hinder them, lol. I know tomorrow I guess. ",1,0,0.49995977599600866,False,True,False,False,False,False,True,False,False,False,False
+MLP Neural Baseline,false_negative,@ShanghaiSix My pleasure Sir ,1,0,0.49994683198813555,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_negative,@TheSymbianBlog easy come easy go ,1,0,0.49993820545440415,False,True,False,False,False,False,False,False,False,False,False

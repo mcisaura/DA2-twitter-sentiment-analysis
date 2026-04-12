@@ -1,0 +1,4 @@
+subset,rows,share_of_test,definition
+full_test,160000,1.0,All held-out test tweets
+any_noise_test,106942,0.6683875,At least one Twitter-specific noise marker
+high_noise_test,34445,0.21528125,At least two noise markers and at least one strong noise marker
