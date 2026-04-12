@@ -1,0 +1,4 @@
+split,rows,positive_rate
+train,1280000,0.5
+validation,160000,0.5
+test,160000,0.5

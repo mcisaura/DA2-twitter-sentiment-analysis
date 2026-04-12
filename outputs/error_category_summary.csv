@@ -1,0 +1,7 @@
+model,error_type,has_url,has_mention,has_hashtag,has_repeated_chars,has_emoticon,has_emoji,has_slang,has_negation,has_sarcasm_marker,has_all_caps,has_excess_punctuation
+Linear SVM,false_negative,0.044,0.488,0.021,0.284,0.005,0.0,0.129,0.291,0.0,0.123,0.094
+Linear SVM,false_positive,0.04,0.486,0.023,0.296,0.007,0.0,0.121,0.17,0.001,0.116,0.089
+Logistic Regression,false_negative,0.045,0.487,0.021,0.283,0.006,0.0,0.129,0.29,0.0,0.123,0.093
+Logistic Regression,false_positive,0.039,0.49,0.023,0.297,0.007,0.0,0.122,0.171,0.001,0.116,0.09
+MLP Neural Baseline,false_negative,0.05,0.485,0.024,0.283,0.004,0.0,0.116,0.281,0.0,0.126,0.095
+MLP Neural Baseline,false_positive,0.039,0.503,0.02,0.294,0.008,0.0,0.129,0.159,0.0,0.115,0.089

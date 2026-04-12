@@ -1,0 +1,31 @@
+model,error_type,text,target,prediction,score,has_url,has_mention,has_hashtag,has_repeated_chars,has_emoticon,has_emoji,has_slang,has_negation,has_sarcasm_marker,has_all_caps,has_excess_punctuation
+Linear SVM,false_negative,@alex17croatia :o no sad faces! only smiles ,1,0,-3.1015955899850707,False,True,False,False,False,False,False,True,False,False,False
+Linear SVM,false_negative,@druey unfortunately i cannot. sorry.  #badoptus,1,0,-2.555507990853708,False,True,True,False,False,False,False,True,False,False,False
+Linear SVM,false_negative,Internet is down in my house-- so sad! At least my iPhone doesn't need to rely on wireless! ,1,0,-2.3199944591479675,False,False,False,False,False,False,False,False,False,False,False
+Linear SVM,false_negative,Got the WORST migraine at skool 2day.A bit dramatic I no but it hurt!Had 2 go home early ,1,0,-2.2349862498738164,False,False,False,False,False,False,False,True,False,True,False
+Linear SVM,false_negative,@kbspectacular Thai pillows! Miss u!  http://twitpic.com/67cf3,1,0,-2.193309197114731,True,True,False,False,False,False,True,False,False,False,False
+Linear SVM,false_positive,@thisisjulze goood luccck love *L( ,0,1,2.0353154996928087,False,True,False,True,False,False,False,False,False,False,False
+Linear SVM,false_positive,I am finally home from my night out. It was fun fun &amp; bitter sweet   Everyone got home safe. Good night or shall I say Good Morning..hehe,0,1,1.9895118996064696,False,False,False,True,False,False,False,False,False,False,False
+Linear SVM,false_positive,@MsKitty0303  your welcome,0,1,1.9253724722889833,False,True,False,False,False,False,False,False,False,False,False
+Linear SVM,false_positive,"@WhiteHowler how dare you insult your loving, adorable wife ",0,1,1.748903319098689,False,True,False,False,False,False,False,False,False,False,False
+Linear SVM,false_positive,@JonasAustralia That quote is amazing. I almost have up on love  Thank you.,0,1,1.694432881382934,False,True,False,False,False,False,False,False,False,False,False
+Logistic Regression,false_negative,@alex17croatia :o no sad faces! only smiles ,1,0,-9.102543115048439,False,True,False,False,False,False,False,True,False,False,False
+Logistic Regression,false_negative,@druey unfortunately i cannot. sorry.  #badoptus,1,0,-6.919827913468033,False,True,True,False,False,False,False,True,False,False,False
+Logistic Regression,false_negative,Internet is down in my house-- so sad! At least my iPhone doesn't need to rely on wireless! ,1,0,-6.637209082556707,False,False,False,False,False,False,False,False,False,False,False
+Logistic Regression,false_negative,@kbspectacular Thai pillows! Miss u!  http://twitpic.com/67cf3,1,0,-6.317484400971711,True,True,False,False,False,False,True,False,False,False,False
+Logistic Regression,false_negative,@MissEsoXclusive Hellur Miss Eeeeeeeeeeeee ,1,0,-6.317484400971711,False,True,False,True,False,False,False,False,False,False,False
+Logistic Regression,false_positive,@thisisjulze goood luccck love *L( ,0,1,5.860230250160948,False,True,False,True,False,False,False,False,False,False,False
+Logistic Regression,false_positive,@MsKitty0303  your welcome,0,1,5.6917767670904995,False,True,False,False,False,False,False,False,False,False,False
+Logistic Regression,false_positive,I am finally home from my night out. It was fun fun &amp; bitter sweet   Everyone got home safe. Good night or shall I say Good Morning..hehe,0,1,5.680404720031643,False,False,False,True,False,False,False,False,False,False,False
+Logistic Regression,false_positive,@DuckDrake Thanks. ,0,1,5.256537228522024,False,True,False,False,False,False,False,False,False,False,False
+Logistic Regression,false_positive,@agustinaimi thanks ,0,1,5.256537228522024,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,@thisisjulze goood luccck love *L( ,0,1,0.9951233603456756,False,True,False,True,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,@MsKitty0303  your welcome,0,1,0.994771726677583,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,I am finally home from my night out. It was fun fun &amp; bitter sweet   Everyone got home safe. Good night or shall I say Good Morning..hehe,0,1,0.9938013284947509,False,False,False,True,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,@DuckDrake Thanks. ,0,1,0.9922177782938076,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,@agustinaimi thanks ,0,1,0.9922177782938076,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_negative,"stars when they were in highschool,have fun  http://bit.ly/8ob2X",1,0,0.4999806389621918,True,False,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_negative,"@ljhaumea She is adorable. And it is terrible, but that she is enjoying it is all that really matters.  xoxoxo",1,0,0.49997670146147793,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_negative,@skibumbrian777 come for the pizza - stay for the 1919 root beer ,1,0,0.49995181801145316,False,True,False,True,False,False,False,False,False,False,False
+MLP Neural Baseline,false_negative,@ddllovato so could you please do that for me and all your fans? then we all can believe its you. and im sorry i acted like a freak b4 ,1,0,0.4999124230703249,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_negative,@ddlovato where in germany are you?? cause I live in frankfurt the city with the big airport ,1,0,0.4999103865596641,False,True,False,False,False,False,False,False,False,False,True
