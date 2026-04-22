@@ -1,0 +1,6 @@
+variant,description,tokenizer,stemming,lemmatization,advanced_normalization,training_rows,validation_rows,train_time_sec,accuracy,precision,recall,f1,macro_f1,roc_auc
+advanced_tweet_stem,Advanced normalization + TweetTokenizer + stemming,tweet,True,False,True,200000,40000,0.4075776669999982,0.794275,0.7895979924223786,0.80235,0.795922922401607,0.7942615846980436,0.87192566
+advanced_whitespace,Advanced normalization + whitespace tokenizer,whitespace,False,False,True,200000,40000,0.3826752919999983,0.79035,0.7853562653562653,0.7991,0.7921685254027262,0.7903339474428511,0.8700933275
+advanced_tweet_tokenizer,Advanced normalization + TweetTokenizer,tweet,False,False,True,200000,40000,0.37914025000000606,0.79035,0.7853562653562653,0.7991,0.7921685254027262,0.7903339474428511,0.8700933275
+advanced_tweet_lemma,Advanced normalization + TweetTokenizer + lemmatization,tweet,False,True,True,200000,40000,0.37126750000000186,0.790125,0.7849810913019989,0.79915,0.7920021803225886,0.7901079041576111,0.8699973000000001
+basic_whitespace,Lowercase + whitespace cleanup baseline,whitespace,False,False,False,200000,40000,0.36983687500000073,0.788025,0.7830573436194782,0.7968,0.7898689003989988,0.7880086765355987,0.8678716737500001

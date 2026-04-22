@@ -1,40 +1,75 @@
 # Sentiment140 Results Summary
 
-This summary reflects the most recent executed notebook outputs. If the controlled-comparison code changes, rerun the notebook section that generates `outputs/` before treating these numbers as final.
+This summary reflects the regenerated notebook outputs from April 22, 2026.
 
-The final comparison used a fixed stratified 80/10/10 train/validation/test split:
+## Split
 
-- Train: 1,280,000 tweets
-- Validation: 160,000 tweets
-- Test: 160,000 tweets
+The final comparison used a fixed stratified `80/10/10` split:
 
-The strongest models were the classical TF-IDF baselines.
+- Train: `1,280,000`
+- Validation: `160,000`
+- Test: `160,000`
 
-- `Linear SVM` achieved the best full-test F1-score: `0.800978`
-- `Logistic Regression` achieved a nearly identical full-test F1-score: `0.800764`
-- `Logistic Regression` achieved the best full-test ROC-AUC: `0.878590`
-- `MLP Neural Baseline` underperformed both classical models with full-test `F1 = 0.747015` and `ROC-AUC = 0.822701`
+## Preprocessing Ablation
 
-Robustness was evaluated on two derived subsets:
+The best preprocessing variant was `advanced_tweet_stem`:
 
-- `any_noise_test`: 106,942 tweets with at least one Twitter-specific noise marker
-- `high_noise_test`: 34,445 tweets with at least two noise markers and at least one strong noise marker such as a hashtag, repeated characters, slang, emoticon, or URL
+- tokenizer: `TweetTokenizer`
+- stemming: `True`
+- lemmatization: `False`
+- advanced normalization: `True`
+- validation macro F1: `0.794262`
 
-On the stricter `high_noise_test` subset:
+## Full Test Results
 
-- `Linear SVM`: `F1` increased from `0.800978` to `0.809510`
-- `Logistic Regression`: `F1` increased from `0.800764` to `0.808773`
-- `MLP Neural Baseline`: `F1` increased from `0.747015` to `0.768644`
+- `LSTM Sequence Model`: `macro F1 = 0.817416`, `ROC-AUC = 0.899443`
+- `Logistic Regression`: `macro F1 = 0.800841`, `ROC-AUC = 0.881079`
+- `Linear SVM`: `macro F1 = 0.800359`, `ROC-AUC = 0.880771`
+- `MLP Neural Baseline`: `macro F1 = 0.759564`, `ROC-AUC = 0.840731`
 
-At the same time, `accuracy` and `ROC-AUC` fell on the high-noise subset for all models. For the MLP, `accuracy` dropped by `0.011472` and `ROC-AUC` dropped by `0.020591`. That means the high-noise subset was still harder overall, but the thresholded precision-recall tradeoff shifted in a way that slightly increased F1.
+The LSTM sequence model was the strongest model on the full held-out test set.
 
-The runtime results also favored the classical models.
+## High-Noise Results
 
-- `Logistic Regression` trained in about `7.20` seconds on the final train+validation split
-- `Linear SVM` trained in about `8.85` seconds
-- `MLP Neural Baseline` trained in about `5.15` seconds despite using only `100,000` training rows and a reduced dense representation
-- The linear models were also much faster at inference than the MLP
+The stricter `high_noise_test` subset contains `34,445` tweets with at least two noise markers and at least one strong Twitter-specific artifact.
 
-The main error-analysis pattern was that negation appeared much more often in false negatives than in false positives. Representative false negatives often contained strongly negative surface words inside tweets that were labeled positive overall, such as `no sad faces! only smiles` or `unfortunately i cannot. sorry. #badoptus`. Representative false positives often contained positive lexical cues such as `thanks`, `welcome`, `love`, or `good morning` even when the dataset label was negative, which likely reflects some distant-supervision label noise in Sentiment140.
+High-noise macro F1:
 
-Final conclusion: for this project, the classical TF-IDF baselines were both more accurate and more effective than the stabilized MLP neural baseline. Under the shared preprocessing and evaluation setup, increased model complexity did not provide a measurable robustness advantage on noisy Twitter sentiment classification, and the stricter high-noise analysis did not change the model ranking.
+- `LSTM Sequence Model`: `0.791648`
+- `Logistic Regression`: `0.770443`
+- `Linear SVM`: `0.770236`
+- `MLP Neural Baseline`: `0.737848`
+
+Macro F1 delta relative to the full test split:
+
+- `LSTM Sequence Model`: `-0.025768`
+- `Logistic Regression`: `-0.030398`
+- `Linear SVM`: `-0.030123`
+- `MLP Neural Baseline`: `-0.021716`
+
+## Runtime
+
+Train time:
+
+- `Logistic Regression`: `6.079` seconds
+- `Linear SVM`: `6.140` seconds
+- `MLP Neural Baseline`: `10.835` seconds
+- `LSTM Sequence Model`: `307.742` seconds
+
+Approximate test throughput:
+
+- `Logistic Regression`: `66,005,484.23` tweets/second
+- `Linear SVM`: `62,359,933.74` tweets/second
+- `MLP Neural Baseline`: `1,942,898.03` tweets/second
+- `LSTM Sequence Model`: `37,849.01` tweets/second
+
+## Error Analysis
+
+Negation still appears much more often in false negatives than in false positives for the classical baselines. For `Linear SVM`, the negation rate is:
+
+- false negatives: `0.292`
+- false positives: `0.170`
+
+## Limitation
+
+Emoji coverage is effectively `0.0` in this extracted test set, so the robustness discussion should not be overstated as an emoji-heavy evaluation.

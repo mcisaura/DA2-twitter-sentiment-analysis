@@ -1,60 +1,54 @@
 # Sentiment140 Twitter Sentiment Analysis
 
-This project analyzes noisy Twitter text using both classical and neural NLP models on the Sentiment140 dataset. The notebook builds and compares TF-IDF based sentiment classifiers alongside an MLP neural baseline, with a focus on reproducible evaluation and robustness to social-media-specific noise.
+This project studies noisy Twitter sentiment classification on the Sentiment140 dataset under a shared experimental design. The final notebook now covers the original proposal more completely by adding a preprocessing ablation, character n-gram TF-IDF baselines, macro and class-wise metrics, and an LSTM sequence model alongside the earlier classical and MLP baselines.
 
-## Project Contents
+## Main Files
 
-- `SentimentsProject.ipynb`: main notebook for data loading, preprocessing, feature extraction, model training, tuning, evaluation, and error analysis
-- `Project Proposal.pdf`: project proposal and contribution plan
+- `SentimentsProject.ipynb`: end-to-end notebook for preprocessing search, model tuning, final evaluation, robustness analysis, and artifact export
+- `Project Proposal.pdf`: original proposal
+- `outputs/`: core report-facing result tables and figures
+- `docu/final_report.md`
+- `docu/final_report.docx`
 
-## What The Notebook Covers
+## Final Model Families
 
-- Loads the Sentiment140 training set from Kaggle using `kagglehub`
-- Cleans tweets with basic and advanced preprocessing
-- Includes exploratory baseline cells for step-by-step development before the final controlled comparison
-- Builds controlled 80/10/10 train, validation, and test splits for fair comparison
-- Builds TF-IDF features with unigram and bigram text features
-- Tunes and compares Logistic Regression and Linear SVM baselines
-- Adds an `MLPClassifier` neural baseline with early stopping on top of a reduced dense representation built with `TruncatedSVD`
-- Reports accuracy, precision, recall, F1-score, ROC-AUC, confusion matrices, training time, throughput, and parameter counts
-- Evaluates performance on both a broad noisy subset and a stricter high-noise subset containing concentrated Twitter-specific artifacts
-- Produces grouped error-analysis tables and representative model mistakes
+- `TF-IDF + Logistic Regression`
+- `TF-IDF + Linear SVM`
+- `TF-IDF -> TruncatedSVD -> MLP`
+- `LSTM Sequence Model`
 
-## Dataset
+## What The Notebook Now Does
 
-This project uses the Sentiment140 dataset from Kaggle:
+- loads Sentiment140 from Kaggle through `kagglehub`
+- creates a fixed stratified `80/10/10` train, validation, and test split
+- compares whitespace tokenization, `TweetTokenizer`, stemming, and lemmatization in a preprocessing ablation
+- searches both word and character n-gram TF-IDF spaces for the classical baselines
+- tunes Logistic Regression, linear SVM, MLP, and LSTM configurations on the validation split
+- evaluates each model on the full held-out test set and on a stricter `high_noise_test` subset
+- exports binary, macro, and class-wise metrics inside the final comparison table
+- exports a smaller default set of report-facing artifacts, plus representative errors and figures
 
-`https://www.kaggle.com/datasets/kazanova/sentiment140`
+## Current Best Result
 
-The notebook loads:
+On the regenerated notebook run dated April 22, 2026:
 
-- `training.1600000.processed.noemoticon.csv`
+- `LSTM Sequence Model` achieved the best full-test macro F1: `0.817416`
+- `LSTM Sequence Model` also achieved the best full-test ROC-AUC: `0.899443`
+- `advanced_tweet_stem` was the strongest preprocessing variant in the ablation
 
 ## Setup
 
-Create and activate a Python environment, then install dependencies:
-
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+python3 -m pip install -r requirements.txt
 ```
 
-Then open the notebook:
+Then open or execute the notebook:
 
 ```bash
 jupyter notebook
 ```
 
-The controlled comparison section includes `EXPERIMENT_SAMPLE_FRACTION = 1.0` by default. Lowering that value can make iteration faster on smaller machines while keeping the same workflow. The notebook also caps the default MLP training rows so the neural baseline remains runnable without changing the shared validation and test splits, and uses a `TF-IDF -> TruncatedSVD -> MLP` pipeline so the dense model does not train directly on raw sparse TF-IDF features.
-
 ## Notes
 
-- The notebook includes a `%pip` cell for `kagglehub[pandas-datasets]`, which helps in Colab or fresh notebook environments.
-- The dataset itself is not committed to this repo.
-- Saved `joblib` artifacts are produced for the tuned Logistic Regression, Linear SVM, and MLP models when the final export cell is run. When the MLP uses dimensionality reduction, its fitted `TruncatedSVD` transformer is also exported.
-- The final export cell also writes `split_summary`, subset definitions, validation results, final comparison metrics, robustness deltas, noise-summary data, and error-analysis tables to `outputs/` as CSV files for the report.
-- Saved figures in `outputs/` include combined confusion matrices and a bar chart of the high-noise F1 deltas.
-- By default, Logistic Regression and Linear SVM train on the full split, while the MLP neural baseline trains on a capped stratified subset for computational feasibility. You can raise or remove that cap in the notebook if you have more compute.
-- The final conclusions should be taken from the controlled-comparison section near the end of the notebook, not from the earlier exploratory baseline cells.
-- Results depend on executing the notebook cells in order because the tuned-comparison section reuses the shared split and evaluation helpers defined earlier in the notebook.
+- Emoji coverage in this Sentiment140 extraction is effectively zero, so the robustness conclusions are strongest for mentions, hashtags, slang, repeated characters, and URLs.
+- The notebook now defaults to a leaner `outputs/` folder. Extra debug-style exports and saved model artifacts are disabled by default.

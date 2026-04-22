@@ -1,31 +1,41 @@
 model,error_type,text,target,prediction,score,has_url,has_mention,has_hashtag,has_repeated_chars,has_emoticon,has_emoji,has_slang,has_negation,has_sarcasm_marker,has_all_caps,has_excess_punctuation
-Linear SVM,false_negative,@alex17croatia :o no sad faces! only smiles ,1,0,-3.1015955899850707,False,True,False,False,False,False,False,True,False,False,False
-Linear SVM,false_negative,@druey unfortunately i cannot. sorry.  #badoptus,1,0,-2.555507990853708,False,True,True,False,False,False,False,True,False,False,False
-Linear SVM,false_negative,Internet is down in my house-- so sad! At least my iPhone doesn't need to rely on wireless! ,1,0,-2.3199944591479675,False,False,False,False,False,False,False,False,False,False,False
-Linear SVM,false_negative,Got the WORST migraine at skool 2day.A bit dramatic I no but it hurt!Had 2 go home early ,1,0,-2.2349862498738164,False,False,False,False,False,False,False,True,False,True,False
-Linear SVM,false_negative,@kbspectacular Thai pillows! Miss u!  http://twitpic.com/67cf3,1,0,-2.193309197114731,True,True,False,False,False,False,True,False,False,False,False
-Linear SVM,false_positive,@thisisjulze goood luccck love *L( ,0,1,2.0353154996928087,False,True,False,True,False,False,False,False,False,False,False
-Linear SVM,false_positive,I am finally home from my night out. It was fun fun &amp; bitter sweet   Everyone got home safe. Good night or shall I say Good Morning..hehe,0,1,1.9895118996064696,False,False,False,True,False,False,False,False,False,False,False
-Linear SVM,false_positive,@MsKitty0303  your welcome,0,1,1.9253724722889833,False,True,False,False,False,False,False,False,False,False,False
-Linear SVM,false_positive,"@WhiteHowler how dare you insult your loving, adorable wife ",0,1,1.748903319098689,False,True,False,False,False,False,False,False,False,False,False
-Linear SVM,false_positive,@JonasAustralia That quote is amazing. I almost have up on love  Thank you.,0,1,1.694432881382934,False,True,False,False,False,False,False,False,False,False,False
-Logistic Regression,false_negative,@alex17croatia :o no sad faces! only smiles ,1,0,-9.102543115048439,False,True,False,False,False,False,False,True,False,False,False
-Logistic Regression,false_negative,@druey unfortunately i cannot. sorry.  #badoptus,1,0,-6.919827913468033,False,True,True,False,False,False,False,True,False,False,False
-Logistic Regression,false_negative,Internet is down in my house-- so sad! At least my iPhone doesn't need to rely on wireless! ,1,0,-6.637209082556707,False,False,False,False,False,False,False,False,False,False,False
-Logistic Regression,false_negative,@kbspectacular Thai pillows! Miss u!  http://twitpic.com/67cf3,1,0,-6.317484400971711,True,True,False,False,False,False,True,False,False,False,False
-Logistic Regression,false_negative,@MissEsoXclusive Hellur Miss Eeeeeeeeeeeee ,1,0,-6.317484400971711,False,True,False,True,False,False,False,False,False,False,False
-Logistic Regression,false_positive,@thisisjulze goood luccck love *L( ,0,1,5.860230250160948,False,True,False,True,False,False,False,False,False,False,False
-Logistic Regression,false_positive,@MsKitty0303  your welcome,0,1,5.6917767670904995,False,True,False,False,False,False,False,False,False,False,False
-Logistic Regression,false_positive,I am finally home from my night out. It was fun fun &amp; bitter sweet   Everyone got home safe. Good night or shall I say Good Morning..hehe,0,1,5.680404720031643,False,False,False,True,False,False,False,False,False,False,False
-Logistic Regression,false_positive,@DuckDrake Thanks. ,0,1,5.256537228522024,False,True,False,False,False,False,False,False,False,False,False
-Logistic Regression,false_positive,@agustinaimi thanks ,0,1,5.256537228522024,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_positive,@thisisjulze goood luccck love *L( ,0,1,0.9913553059035999,False,True,False,True,False,False,False,False,False,False,False
-MLP Neural Baseline,false_positive,@DuckDrake Thanks. ,0,1,0.9908117832347795,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_positive,@agustinaimi thanks ,0,1,0.9908117832347795,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_positive,@IamSamL thanks ,0,1,0.9908117832347795,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_positive,humf  thanks?,0,1,0.9908117832347795,False,False,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_negative,@ladyviv Oooooohey.. tell me more darling ,1,0,0.49999878089933547,False,True,False,True,False,False,False,False,False,False,False
-MLP Neural Baseline,false_negative,@rafaelesantos does this mean that we are going to all get macs ,1,0,0.4999615531093085,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_negative,"@WatariGoro Yep. I hope my lame attempt with the spaces helped me to hinder them, lol. I know tomorrow I guess. ",1,0,0.49995977599600866,False,True,False,False,False,False,True,False,False,False,False
-MLP Neural Baseline,false_negative,@ShanghaiSix My pleasure Sir ,1,0,0.49994683198813555,False,True,False,False,False,False,False,False,False,False,False
-MLP Neural Baseline,false_negative,@TheSymbianBlog easy come easy go ,1,0,0.49993820545440415,False,True,False,False,False,False,False,False,False,False,False
+LSTM Sequence Model,false_positive,I am finally home from my night out. It was fun fun &amp; bitter sweet   Everyone got home safe. Good night or shall I say Good Morning..hehe,0,1,0.9971287846565247,False,False,False,True,False,False,False,False,False,False,False
+LSTM Sequence Model,false_positive,We will be changing our name again  Please stay tuned and follow our new page once Ophelia barks up a new name for http://dog-wuh.com thx!,0,1,0.996817946434021,True,False,False,False,False,False,False,False,False,False,False
+LSTM Sequence Model,false_positive,@mileycyrus and your fans in Chile? haha  Chile love u!andwaiting for u!you makesan awesome job onhannah montana!u are an amazing actress!,0,1,0.9967654943466187,False,True,False,False,False,False,True,False,False,False,False
+LSTM Sequence Model,false_positive,"@GothLitChic Very! I'm on rich tea biscuits  Go read Written in the Stars, it's beautiful!",0,1,0.9966163039207458,False,True,False,False,False,False,False,False,False,False,False
+LSTM Sequence Model,false_positive,is singing &quot;everlasting love&quot;  http://plurk.com/p/ysntz,0,1,0.9954699277877808,True,False,False,False,False,False,False,False,False,False,False
+LSTM Sequence Model,false_negative,"what a gr8 day, sun is shining &amp; my exams are over 4 this semester!! ",1,0,0.4999922513961792,False,False,False,False,False,False,False,False,False,False,True
+LSTM Sequence Model,false_negative,off to the metro centre for more hair extensions  and i NEED sunglasses!,1,0,0.4999597668647766,False,False,False,False,False,False,False,False,False,True,False
+LSTM Sequence Model,false_negative,@misskeish I thought I was the only one who required nice hands. ,1,0,0.4999583959579468,False,True,False,False,False,False,False,False,False,False,False
+LSTM Sequence Model,false_negative,"@alephdmc yaay! I'm waiting 15.00 WIB on CNBC too, haven't yet seen Conan on Tonight Show. ",1,0,0.49991264939308167,False,True,False,False,False,False,False,False,False,True,False
+LSTM Sequence Model,false_negative,@ltning dammit... you're right ,1,0,0.49982398748397827,False,True,False,True,False,False,False,False,False,False,False
+Linear SVM,false_negative,"no sadness, just optimism! ",1,0,-3.2710972351835235,False,False,False,False,False,False,False,True,False,False,False
+Linear SVM,false_negative,i miss voss ,1,0,-2.571780559667599,False,False,False,False,False,False,False,False,False,False,False
+Linear SVM,false_negative,Internet is down in my house-- so sad! At least my iPhone doesn't need to rely on wireless! ,1,0,-2.4391790177749915,False,False,False,False,False,False,False,False,False,False,False
+Linear SVM,false_negative,Got the WORST migraine at skool 2day.A bit dramatic I no but it hurt!Had 2 go home early ,1,0,-2.3778012344713,False,False,False,False,False,False,False,True,False,True,False
+Linear SVM,false_negative,my neck doesn't hurt anymore!   ,1,0,-2.3440549281773375,False,False,False,True,False,False,False,False,False,False,False
+Linear SVM,false_positive,humf  thanks?,0,1,2.019591281502672,False,False,False,False,False,False,False,False,False,False,False
+Linear SVM,false_positive,@pavithri Sniff... Thanks... Sniff.... ,0,1,1.991382448441604,False,True,False,True,False,False,False,False,False,False,False
+Linear SVM,false_positive,I am finally home from my night out. It was fun fun &amp; bitter sweet   Everyone got home safe. Good night or shall I say Good Morning..hehe,0,1,1.7626430934410924,False,False,False,True,False,False,False,False,False,False,False
+Linear SVM,false_positive,@thisisjulze goood luccck love *L( ,0,1,1.7529827242783576,False,True,False,True,False,False,False,False,False,False,False
+Linear SVM,false_positive,Well thanks ,0,1,1.7398538317737462,False,False,False,False,False,False,False,False,False,False,False
+Logistic Regression,false_negative,"no sadness, just optimism! ",1,0,-9.796464041625068,False,False,False,False,False,False,False,True,False,False,False
+Logistic Regression,false_negative,i miss voss ,1,0,-7.397326897742085,False,False,False,False,False,False,False,False,False,False,False
+Logistic Regression,false_negative,Internet is down in my house-- so sad! At least my iPhone doesn't need to rely on wireless! ,1,0,-7.150937482207685,False,False,False,False,False,False,False,False,False,False,False
+Logistic Regression,false_negative,my neck doesn't hurt anymore!   ,1,0,-6.753630098075986,False,False,False,True,False,False,False,False,False,False,False
+Logistic Regression,false_negative,Got the WORST migraine at skool 2day.A bit dramatic I no but it hurt!Had 2 go home early ,1,0,-6.703298855256673,False,False,False,False,False,False,False,True,False,True,False
+Logistic Regression,false_positive,humf  thanks?,0,1,6.08999933191696,False,False,False,False,False,False,False,False,False,False,False
+Logistic Regression,false_positive,@pavithri Sniff... Thanks... Sniff.... ,0,1,5.905319077548984,False,True,False,True,False,False,False,False,False,False,False
+Logistic Regression,false_positive,@thisisjulze goood luccck love *L( ,0,1,5.403250335355754,False,True,False,True,False,False,False,False,False,False,False
+Logistic Regression,false_positive,Well thanks ,0,1,5.118976900464028,False,False,False,False,False,False,False,False,False,False,False
+Logistic Regression,false_positive,I am finally home from my night out. It was fun fun &amp; bitter sweet   Everyone got home safe. Good night or shall I say Good Morning..hehe,0,1,5.0823778137635145,False,False,False,True,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,humf  thanks?,0,1,0.9953759641128278,False,False,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,@pavithri Sniff... Thanks... Sniff.... ,0,1,0.9950557053194851,False,True,False,True,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,@thisisjulze goood luccck love *L( ,0,1,0.994619300221215,False,True,False,True,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,Love paperwork...  ,0,1,0.9925234265339054,False,False,False,True,False,False,False,False,False,False,False
+MLP Neural Baseline,false_positive,@denial_island Glad you're having a great time! I'm envious...currently its bucketing with rain here  Enjoy the lovely weather - Have fun!,0,1,0.992169898525186,False,True,False,True,False,False,False,False,False,False,False
+MLP Neural Baseline,false_negative,@suraj3 Don't jinx it!  It's supposed to be nice for the next week ,1,0,0.49998662740772304,False,True,False,False,False,False,False,True,False,False,False
+MLP Neural Baseline,false_negative,"@garoo @wilshipley Well, you're obviously supposed to buy one iPhone per OS revision for testing purposes, what's so hard to understand? ",1,0,0.4999864332424458,False,True,False,False,False,False,False,False,False,False,False
+MLP Neural Baseline,false_negative,PRESS DAY TOMORROW BIIIITCH ,1,0,0.4999837131542372,False,False,False,True,False,False,False,False,False,True,False
+MLP Neural Baseline,false_negative,@shontilynn I want some!!!  ,1,0,0.4999824942173556,False,True,False,True,False,False,False,False,False,False,True
+MLP Neural Baseline,false_negative,Pub afterr ,1,0,0.49997532416726304,False,False,False,False,False,False,False,False,False,False,False
