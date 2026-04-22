@@ -1,174 +1,162 @@
 # Robust Sentiment Analysis on Noisy Twitter Data
 
-## A Comparison of Classical Machine Learning and Neural Models
+## Final Research Report
 
 **Group 16**  
 **Authors:** Oluchi Nwabuoku and Pete Sankar
 
-## ABSTRACT
+## Abstract
 
-This project studies large-scale Twitter sentiment classification on the Sentiment140 dataset under a shared experimental design. The final notebook compares four model families: TF-IDF + Logistic Regression, TF-IDF + linear SVM, a neural baseline implemented as TF-IDF -> TruncatedSVD -> MLP, and an LSTM sequence model. In addition to the model comparison, the final workflow includes a preprocessing ablation, character n-gram baselines for the classical models, macro and class-wise metrics, and a robustness evaluation on a stricter subset of noisy tweets. The strongest full-test model was the **LSTM Sequence Model**, which achieved macro F1 `0.817416` and ROC-AUC `0.899443` on the held-out test set. On the `high_noise_test` subset of 34,445 tweets, all models lost macro F1 relative to the full test split, but the LSTM remained the strongest overall. These results show that neural sequence modeling can outperform the stronger classical baselines on this task, although that gain comes with a much higher runtime cost.
+This report presents the final version of our Sentiment140 study comparing classical machine learning and neural models for sentiment classification on noisy Twitter text. Using a fixed stratified split of 1,280,000 training tweets, 160,000 validation tweets, and 160,000 test tweets, we evaluated Logistic Regression, Linear SVM, a TF-IDF -> TruncatedSVD -> MLP baseline, and an LSTM sequence model under the same preprocessing and evaluation framework. The best preprocessing pipeline was `advanced_tweet_stem`, which reached validation macro F1 `0.794262`. On the held-out full test set, the LSTM achieved the strongest overall performance with accuracy `0.817450`, macro F1 `0.817416`, and ROC-AUC `0.899443`. On the stricter `high_noise_test` subset of 34,445 tweets, the LSTM again ranked first with macro F1 `0.791648`. However, that gain came with a large efficiency cost: compared with Logistic Regression, the LSTM trained `50.62x` slower and its inference throughput was `1743.92x` lower. The final conclusion is that sequence modeling improves performance on noisy tweet sentiment classification, but strong TF-IDF linear baselines remain highly competitive when efficiency matters.
 
-## 1. INTRODUCTION
+## 1. Introduction
 
-Sentiment analysis is a core natural language processing task with applications in customer feedback analysis, public opinion tracking, product monitoring, journalism, and content moderation. Twitter-style text is especially difficult because it is short, noisy, and highly informal. Tweets often contain mentions, hashtags, repeated characters, abbreviations, slang, URLs, and unconventional punctuation. These features can interfere with traditional bag-of-words approaches, but they can also provide useful signal if the model and preprocessing pipeline handle them correctly.
+Sentiment analysis on Twitter-style text remains difficult because tweets are short, informal, and full of platform-specific noise. Mentions, hashtags, repeated characters, abbreviations, slang, URLs, and irregular punctuation can all distort surface lexical patterns. These same artifacts can also carry sentiment signal, which makes preprocessing and model design especially important.
 
-The goal of this project is to compare strong classical machine learning baselines against neural approaches under the same train/validation/test split and the same evaluation metrics. The central question is whether more complex neural models provide a meaningful advantage over well-tuned TF-IDF based baselines when the data contains Twitter-specific linguistic noise.
+The central research question in this project is whether neural models provide a meaningful advantage over well-tuned classical baselines when both are evaluated on the same noisy Twitter classification task. Rather than comparing unrelated implementations, this report uses a controlled design: the same dataset, the same split, the same preprocessing selection process, and the same evaluation metrics across all models.
 
-## 2. RELATED WORK
+## 2. Dataset and Experimental Design
 
-The proposal framed this project around the broader progression of sentiment analysis methods, from sparse lexical models such as TF-IDF + linear classifiers to neural architectures that learn denser and more contextual representations. Classical baselines often remain strong because they are efficient, interpretable, and robust on large labeled corpora. At the same time, neural models are expected to better capture sequential and contextual effects such as negation, intensification, and multi-token phrase patterns.
+The study uses the Sentiment140 corpus, remapped into binary labels where `0 = negative` and `1 = positive`. The final split was fixed and stratified:
 
-This project does not attempt a full literature survey. Instead, it follows the comparative logic described in the proposal: establish strong Logistic Regression and linear SVM baselines, compare them to neural approaches, and then evaluate how performance changes on a more difficult subset containing higher concentrations of Twitter-specific noise.
+| Split | Rows | Positive Rate |
+|---|---:|---:|
+| Train | 1,280,000 | 0.50 |
+| Validation | 160,000 | 0.50 |
+| Test | 160,000 | 0.50 |
 
-## 3. PROPOSED METHODS
+### 2.1 Preprocessing Ablation
 
-The final notebook uses the Sentiment140 dataset from Kaggle and loads `training.1600000.processed.noemoticon.csv`. The original Sentiment140 labels are remapped into a binary target where `0 = negative` and `1 = positive`. The final controlled split is stratified and fixed across all models:
+Before the final model comparison, multiple preprocessing variants were tested on the validation split. The strongest variant was `advanced_tweet_stem`, which combined advanced normalization, `TweetTokenizer`, and stemming.
 
-- Train: 1,280,000
-- Validation: 160,000
-- Test: 160,000
+| Variant | Tokenizer | Stemming | Lemmatization | Advanced Norm. | Validation Accuracy | Validation Macro F1 | Validation ROC-AUC |
+|---|---|---:|---:|---:|---:|---:|---:|
+| `advanced_tweet_stem` | tweet | True | False | True | 0.794275 | 0.794262 | 0.871926 |
+| `advanced_whitespace` | whitespace | False | False | True | 0.790350 | 0.790334 | 0.870093 |
+| `advanced_tweet_tokenizer` | tweet | False | False | True | 0.790350 | 0.790334 | 0.870093 |
+| `advanced_tweet_lemma` | tweet | False | True | True | 0.790125 | 0.790108 | 0.869997 |
+| `basic_whitespace` | whitespace | False | False | False | 0.788025 | 0.788009 | 0.867872 |
 
-### 3.1 Preprocessing
+### 2.2 Models
 
-To close the missing proposal work, the notebook evaluates multiple preprocessing variants before the final comparison. These variants differ in tokenization and normalization choices, including whitespace tokenization, `TweetTokenizer`, stemming, and lemmatization. The strongest variant was **`advanced_tweet_stem`**, which used:
-
-- tokenizer: `tweet`
-- stemming: `True`
-- lemmatization: `False`
-- advanced normalization: `True`
-
-Its validation macro F1 was `0.794262`.
-
-### 3.2 Models
-
-The final comparison includes four model families:
+The final comparison included four model families:
 
 - Logistic Regression with tuned TF-IDF features
-- linear SVM with tuned TF-IDF features
-- MLP neural baseline using `TF-IDF -> TruncatedSVD`
-- LSTM sequence model over tokenized tweet text
+- Linear SVM with tuned TF-IDF features
+- MLP Neural Baseline using `TF-IDF -> TruncatedSVD`
+- LSTM Sequence Model over tokenized tweet text
 
-The classical models search both word and character n-gram TF-IDF spaces. The MLP uses a reduced dense representation created by TruncatedSVD, while the LSTM consumes token sequences directly.
+The classical models searched both word and character n-gram spaces, while the LSTM operated directly on token sequences. All final metrics reported below come from the saved output tables in `outputs/`.
 
-### 3.3 Robustness Subset
+### 2.3 Robustness Subsets
 
-To directly address the proposal’s research question, the notebook evaluates models on both the full held-out test set and a stricter `high_noise_test` subset. The subset contains tweets with at least two noise markers and at least one strong Twitter-specific artifact. Its size is 34,445 tweets out of 160,000 held-out test examples.
+To measure robustness under Twitter-specific noise, the project evaluated the models on both the full held-out test split and noise-focused subsets:
 
-## 4. EVALUATION OF MODELS
+| Subset | Rows | Share of Test | Definition |
+|---|---:|---:|---|
+| `full_test` | 160,000 | 1.0000 | All held-out test tweets |
+| `any_noise_test` | 106,942 | 0.6684 | At least one Twitter-specific noise marker |
+| `high_noise_test` | 34,445 | 0.2153 | At least two noise markers and at least one strong noise marker |
 
-Hyperparameters are selected on the validation split, and the chosen model configurations are evaluated once on the held-out test split. The final comparison reports:
+## 3. Results
 
-- accuracy
-- precision
-- recall
-- F1
-- macro precision
-- macro recall
-- macro F1
-- class-wise precision, recall, and F1 for both labels
-- ROC-AUC
-- training time
-- prediction time and throughput
-- parameter count
+### 3.1 Full-Test Performance
 
-The use of macro F1 is particularly important because it gives a more balanced summary of classifier behavior across both sentiment labels, while ROC-AUC captures the ranking quality of model scores independently of one fixed threshold.
+The full-test comparison shows that the LSTM was the strongest model overall, followed closely by Logistic Regression and Linear SVM. The MLP baseline was clearly weaker than both the linear baselines and the LSTM.
 
-## 5. RESULTS AND DISCUSSION
+| Model | Accuracy | Precision | Recall | F1 | Macro Precision | Macro Recall | Macro F1 | ROC-AUC |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Logistic Regression | 0.800881 | 0.792554 | 0.815113 | 0.803675 | 0.801125 | 0.800881 | 0.800841 | 0.881079 |
+| Linear SVM | 0.800419 | 0.790347 | 0.817763 | 0.803821 | 0.800781 | 0.800419 | 0.800359 | 0.880771 |
+| MLP Neural Baseline | 0.759581 | 0.764087 | 0.751050 | 0.757513 | 0.759657 | 0.759581 | 0.759564 | 0.840731 |
+| LSTM Sequence Model | 0.817450 | 0.826351 | 0.803813 | 0.814926 | 0.817686 | 0.817450 | 0.817416 | 0.899443 |
 
-### 5.1 Full Test Results
+The LSTM improved full-test macro F1 over Logistic Regression by `0.016575` absolute, which is a relative gain of about `2.07%`. It also had the best ROC-AUC, indicating stronger ranking quality across thresholds.
 
-Full-test macro F1 and ROC-AUC are summarized below:
+### 3.2 Robustness on High-Noise Tweets
 
-- Logistic Regression: macro F1 `0.800841`, ROC-AUC `0.881079`
-- Linear SVM: macro F1 `0.800359`, ROC-AUC `0.880771`
-- MLP Neural Baseline: macro F1 `0.759564`, ROC-AUC `0.840731`
-- LSTM Sequence Model: macro F1 `0.817416`, ROC-AUC `0.899443`
+All models lost performance on the stricter high-noise subset, but the rank order did not change: the LSTM remained first, Logistic Regression and Linear SVM remained very close to one another, and the MLP remained last in absolute performance.
 
-The strongest model on the full held-out test set was the **LSTM Sequence Model**. The two classical baselines remained very close to one another and clearly outperformed the MLP baseline, but neither matched the LSTM on macro F1 or ROC-AUC.
+| Model | High-Noise Accuracy | High-Noise F1 | High-Noise Macro F1 | Macro F1 Delta vs Full Test | High-Noise ROC-AUC |
+|---|---:|---:|---:|---:|---:|
+| Logistic Regression | 0.777413 | 0.810443 | 0.770443 | -0.030398 | 0.858335 |
+| Linear SVM | 0.777413 | 0.810845 | 0.770236 | -0.030123 | 0.857971 |
+| MLP Neural Baseline | 0.746059 | 0.784243 | 0.737848 | -0.021716 | 0.820157 |
+| LSTM Sequence Model | 0.796400 | 0.823114 | 0.791648 | -0.025768 | 0.877578 |
 
-### 5.2 High-Noise Robustness Results
+Two points matter here. First, the LSTM had the best absolute high-noise performance. Second, the MLP showed the smallest macro F1 drop, but because its full-test baseline was already much lower, it still remained the weakest model on the noisy subset.
 
-High-noise macro F1 values were:
+### 3.3 Runtime and Model Efficiency
 
-- Logistic Regression: `0.770443`
-- Linear SVM: `0.770236`
-- MLP Neural Baseline: `0.737848`
-- LSTM Sequence Model: `0.791648`
+Performance alone does not settle the model choice. The output metrics show a steep cost for the LSTM:
 
-Macro F1 deltas relative to the full test split were:
+| Model | Training Time (s) | Prediction Time (s) | Throughput (tweets/s) | Parameter Count |
+|---|---:|---:|---:|---:|
+| Logistic Regression | 6.079 | 0.002424 | 66,005,484.23 | 5,001 |
+| Linear SVM | 6.140 | 0.002566 | 62,359,933.74 | 5,001 |
+| MLP Neural Baseline | 10.835 | 0.082351 | 1,942,898.03 | 38,657 |
+| LSTM Sequence Model | 307.742 | 4.227323 | 37,849.01 | 1,313,345 |
 
-- Logistic Regression: `-0.030398`
-- Linear SVM: `-0.030123`
-- MLP Neural Baseline: `-0.021716`
-- LSTM Sequence Model: `-0.025768`
+Relative to Logistic Regression, the LSTM required `50.62x` more training time and reduced throughput by a factor of `1743.92x`. This is the main practical trade-off in the project: the LSTM is best on quality, but not on computational efficiency.
 
-This robustness analysis shows that the noisy subset remains harder overall by macro F1, but the LSTM degrades less than the two classical baselines in macro F1. That does not make the classical models weak; they are still strong and dramatically faster. It does suggest, however, that the LSTM captures some sequential structure that the sparse models handle less effectively under noisier conditions.
+### 3.4 Approximate Confidence Intervals and Statistical Caution
 
-### 5.3 Runtime Discussion
+Because the held-out test set contains 160,000 tweets, approximate 95% confidence intervals for accuracy are very narrow. Using a normal approximation to the binomial proportion:
 
-Training times on the final evaluation run were:
+- LSTM accuracy `0.817450`, 95% CI `[0.815557, 0.819343]`
+- Logistic Regression accuracy `0.800881`, 95% CI `[0.798924, 0.802838]`
+- Linear SVM accuracy `0.800419`, 95% CI `[0.798460, 0.802377]`
+- MLP accuracy `0.759581`, 95% CI `[0.757487, 0.761675]`
 
-- Logistic Regression: `6.079` seconds
-- Linear SVM: `6.140` seconds
-- MLP Neural Baseline: `10.835` seconds
-- LSTM Sequence Model: `307.742` seconds
+These intervals suggest that the LSTM advantage in accuracy is unlikely to be random sampling noise alone. However, paired significance tests such as McNemar's test were not possible because the project artifacts do not include complete paired prediction outputs for every model. The correct interpretation is therefore that the improvement is likely meaningful, but not formally proven with paired error testing.
 
-Approximate test throughput in tweets per second was:
+### 3.5 Error Analysis
 
-- Logistic Regression: `66005484.23`
-- Linear SVM: `62359933.74`
-- MLP Neural Baseline: `1942898.03`
-- LSTM Sequence Model: `37849.01`
+The representative errors and summary outputs show that negation remains a recurring challenge, especially for the classical baselines. In the saved error summary for Linear SVM, negation appeared in `29.2%` of false negatives compared with `17.0%` of false positives. This pattern suggests that sentiment reversals and contrastive phrasing remain difficult for sparse lexical models.
 
-The LSTM gives the strongest predictive performance, but it is far more expensive than the classical baselines. That tradeoff matters. If runtime and simplicity are the main priorities, the classical models remain attractive. If the priority is maximum held-out performance, the LSTM is the best model in this final run.
+Representative LSTM false negatives also show that some misses involve subtle context rather than obvious noise:
 
-### 5.4 Error Analysis
+- `what a gr8 day, sun is shining & my exams are over 4 this semester!!`
+- `off to the metro centre for more hair extensions and i NEED sunglasses!`
+- `@misskeish I thought I was the only one who required nice hands.`
 
-Representative false negatives:
-- `what a gr8 day, sun is shining &amp; my exams are over 4 this semester!! `
-- `off to the metro centre for more hair extensions  and i NEED sunglasses!`
-- `@misskeish I thought I was the only one who required nice hands. `
+The project output also notes that emoji coverage in this extracted evaluation set is effectively negligible, so the robustness findings should not be overstated as evidence about emoji-heavy social media sentiment.
 
-Representative false positives:
-- `I am finally home from my night out. It was fun fun &amp; bitter sweet   Everyone got home safe. Good night or shall I say Good Morning..hehe`
-- `We will be changing our name again  Please stay tuned and follow our new page once Ophelia barks up a new name for http://dog-wuh.com thx!`
-- `@mileycyrus and your fans in Chile? haha  Chile love u!andwaiting for u!you makesan awesome job onhannah montana!u are an amazing actress!`
+## 4. Discussion
 
-These examples show a mix of difficult linguistic cases and likely label noise from the distant-supervision process used in Sentiment140. They also reinforce that even the best model still struggles on some tweets whose sentiment depends on subtle context or mismatched surface cues.
+The final results support three clear conclusions.
 
-## 6. CONCLUSIONS
+First, strong TF-IDF linear baselines remain difficult to beat decisively on binary tweet sentiment classification. Logistic Regression and Linear SVM both achieved macro F1 around `0.801`, which kept them very close to the best neural model while remaining far simpler and faster.
 
-The final project provides a much more complete answer to the original proposal than the earlier notebook state. It includes the classical baselines, an MLP baseline, and an LSTM sequence model on the same fixed split; it documents preprocessing choices through an ablation; it evaluates word and character TF-IDF baselines; and it reports macro and class-wise metrics in the final comparison.
+Second, the LSTM produced the best results on both the full test set and the high-noise subset. This supports the idea that sequential neural models capture contextual patterns that sparse features only partially represent. The advantage is real, but modest in size relative to cost.
 
-The strongest result in the latest run is that the **LSTM Sequence Model** was the best-performing model on the held-out comparison, with macro F1 `0.817416` and ROC-AUC `0.899443`. At the same time, the classical baselines remained highly competitive while being much faster and simpler to train. The final takeaway is therefore not just that the LSTM wins, but that the best model choice depends on whether predictive performance or computational practicality matters more.
+Third, the MLP neural baseline did not justify its added complexity. It underperformed both linear baselines and the LSTM on the main benchmark and on the noisy subset. In this experiment, moving from sparse linear models to a shallow dense baseline was not enough; the gain only appeared once the model encoded token sequence structure directly.
 
-## 7. RESOURCES
+These findings also suggest a natural bridge to modern transformer-based work. A tweet-specific pretrained transformer such as BERTweet would likely shift the quality frontier further upward. That said, the current study still has value because it makes the classical-versus-neural trade-off explicit in a controlled setting rather than hiding it behind a leaderboard-only comparison.
 
-This project uses:
+## 5. Limitations and Future Work
 
-- Sentiment140 from Kaggle as the primary dataset
-- `scikit-learn` for Logistic Regression, linear SVM, and the MLP baseline
-- `PyTorch` for the LSTM sequence model
-- `nltk` for tokenization and stemming choices in the preprocessing ablation
-- `kagglehub` for dataset loading
+This project is limited in several important ways:
 
-## 8. CONTRIBUTIONS
+- It evaluates only binary sentiment classification on a single dataset.
+- The dataset is based on distant supervision, so some label noise is inherent.
+- The current artifact set does not allow paired significance testing across complete prediction outputs.
+- Emoji-heavy robustness cannot be assessed meaningfully from this extracted split.
+- No transformer baseline was included in the executed comparison.
 
-The proposal split work across data loading, preprocessing, baselines, robustness analysis, evaluation, and the final writeup. In the final notebook, those areas are represented by:
+The most useful next step would be to preserve the same evaluation structure and add transformer baselines, cross-dataset validation, and paired significance testing with saved prediction files.
 
-- data loading and preprocessing
-- shared train/validation/test split construction
-- Logistic Regression baseline
-- linear SVM baseline
-- MLP baseline
-- LSTM sequence model
-- robustness subset construction
-- final evaluation and report writing
+## 6. Conclusion
 
-## 9. REFERENCES
+The final project shows that the `LSTM Sequence Model` was the strongest model in the controlled Sentiment140 comparison, achieving macro F1 `0.817416` and ROC-AUC `0.899443` on the full held-out test set and macro F1 `0.791648` on the `high_noise_test` subset. At the same time, `Logistic Regression` and `Linear SVM` remained highly competitive while offering dramatically better runtime efficiency.
 
-1. Sentiment140 dataset: `https://www.kaggle.com/datasets/kazanova/sentiment140`
-2. Notebook and exported artifacts in this repository
-3. `scikit-learn` documentation: `https://scikit-learn.org/`
-4. `PyTorch` documentation: `https://pytorch.org/`
+The main contribution of the report is therefore not only identifying the best-performing model, but quantifying the trade-off between predictive quality and computational cost on noisy Twitter data. Under this design, the LSTM wins on performance, while the classical baselines remain strong default choices when simplicity, speed, and reproducibility matter.
+
+## References
+
+1. Go, A., Bhayani, R., and Huang, L. *Twitter Sentiment Classification using Distant Supervision*. Stanford University, 2009.
+2. Pang, B., Lee, L., and Vaithyanathan, S. *Thumbs up? Sentiment Classification using Machine Learning Techniques*. EMNLP, 2002.
+3. Hutto, C., and Gilbert, E. *VADER: A Parsimonious Rule-Based Model for Sentiment Analysis of Social Media Text*. ICWSM, 2014.
+4. Barbieri, F., Camacho-Collados, J., Espinosa Anke, L., and Neves, L. *TweetEval: Unified Benchmark and Comparative Evaluation for Tweet Classification*. Findings of EMNLP, 2020.
+5. Nguyen, D. Q., Vu, T., and Nguyen, A. T. *BERTweet: A Pre-trained Language Model for English Tweets*. EMNLP, 2020.
+6. Project artifacts in this repository, especially `outputs/comparison_results.csv`, `outputs/preprocessing_ablation_results.csv`, `outputs/split_summary.csv`, `outputs/subset_summary.csv`, `outputs/robustness_delta.csv`, and `RESULTS_SUMMARY.md`.
