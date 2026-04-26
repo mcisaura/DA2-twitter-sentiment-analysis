@@ -1,6 +1,6 @@
 # Sentiment140 Results Summary
 
-This summary reflects the regenerated notebook outputs from April 22, 2026.
+This summary reflects the regenerated notebook outputs from April 25, 2026.
 
 ## Split
 
@@ -31,6 +31,15 @@ The LSTM sequence model was the strongest model on the full held-out test set.
 
 ## High-Noise Results
 
+The `any_noise_test` subset contains `106,942` tweets with at least one Twitter-specific noise marker.
+
+Any-noise macro F1:
+
+- `LSTM Sequence Model`: `0.807600`
+- `Logistic Regression`: `0.790225`
+- `Linear SVM`: `0.789570`
+- `MLP Neural Baseline`: `0.750653`
+
 The stricter `high_noise_test` subset contains `34,445` tweets with at least two noise markers and at least one strong Twitter-specific artifact.
 
 High-noise macro F1:
@@ -51,17 +60,28 @@ Macro F1 delta relative to the full test split:
 
 Train time:
 
-- `Logistic Regression`: `6.079` seconds
-- `Linear SVM`: `6.140` seconds
-- `MLP Neural Baseline`: `10.835` seconds
-- `LSTM Sequence Model`: `307.742` seconds
+- `Logistic Regression`: `13.652` seconds
+- `Linear SVM`: `12.869` seconds
+- `MLP Neural Baseline`: `20.244` seconds
+- `LSTM Sequence Model`: `529.033` seconds
 
 Approximate test throughput:
 
-- `Logistic Regression`: `66,005,484.23` tweets/second
-- `Linear SVM`: `62,359,933.74` tweets/second
-- `MLP Neural Baseline`: `1,942,898.03` tweets/second
-- `LSTM Sequence Model`: `37,849.01` tweets/second
+- `Logistic Regression`: `41,539,560` tweets/second
+- `Linear SVM`: `37,330,120` tweets/second
+- `MLP Neural Baseline`: `936,697` tweets/second
+- `LSTM Sequence Model`: `29,269` tweets/second
+
+## Statistical Checks
+
+Approximate 95% confidence intervals for full-test accuracy:
+
+- `LSTM Sequence Model`: `[0.815557, 0.819343]`
+- `Logistic Regression`: `[0.798924, 0.802838]`
+- `Linear SVM`: `[0.798460, 0.802377]`
+- `MLP Neural Baseline`: `[0.757487, 0.761675]`
+
+Paired McNemar tests on full-test predictions support the LSTM's advantage over Logistic Regression (`p ~= 4.03e-89`) and Linear SVM (`p ~= 1.28e-92`). Logistic Regression and Linear SVM were not clearly separable under the paired test (`p ~= 0.0596`).
 
 ## Error Analysis
 

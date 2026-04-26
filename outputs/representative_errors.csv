@@ -5,9 +5,9 @@ LSTM Sequence Model,false_positive,@mileycyrus and your fans in Chile? haha  Chi
 LSTM Sequence Model,false_positive,"@GothLitChic Very! I'm on rich tea biscuits  Go read Written in the Stars, it's beautiful!",0,1,0.9966163039207458,False,True,False,False,False,False,False,False,False,False,False
 LSTM Sequence Model,false_positive,is singing &quot;everlasting love&quot;  http://plurk.com/p/ysntz,0,1,0.9954699277877808,True,False,False,False,False,False,False,False,False,False,False
 LSTM Sequence Model,false_negative,"what a gr8 day, sun is shining &amp; my exams are over 4 this semester!! ",1,0,0.4999922513961792,False,False,False,False,False,False,False,False,False,False,True
-LSTM Sequence Model,false_negative,off to the metro centre for more hair extensions  and i NEED sunglasses!,1,0,0.4999597668647766,False,False,False,False,False,False,False,False,False,True,False
-LSTM Sequence Model,false_negative,@misskeish I thought I was the only one who required nice hands. ,1,0,0.4999583959579468,False,True,False,False,False,False,False,False,False,False,False
-LSTM Sequence Model,false_negative,"@alephdmc yaay! I'm waiting 15.00 WIB on CNBC too, haven't yet seen Conan on Tonight Show. ",1,0,0.49991264939308167,False,True,False,False,False,False,False,False,False,True,False
+LSTM Sequence Model,false_negative,off to the metro centre for more hair extensions  and i NEED sunglasses!,1,0,0.49995970726013184,False,False,False,False,False,False,False,False,False,True,False
+LSTM Sequence Model,false_negative,@misskeish I thought I was the only one who required nice hands. ,1,0,0.49995851516723633,False,True,False,False,False,False,False,False,False,False,False
+LSTM Sequence Model,false_negative,"@alephdmc yaay! I'm waiting 15.00 WIB on CNBC too, haven't yet seen Conan on Tonight Show. ",1,0,0.4999127686023712,False,True,False,False,False,False,False,False,False,True,False
 LSTM Sequence Model,false_negative,@ltning dammit... you're right ,1,0,0.49982398748397827,False,True,False,True,False,False,False,False,False,False,False
 Linear SVM,false_negative,"no sadness, just optimism! ",1,0,-3.2710972351835235,False,False,False,False,False,False,False,True,False,False,False
 Linear SVM,false_negative,i miss voss ,1,0,-2.571780559667599,False,False,False,False,False,False,False,False,False,False,False

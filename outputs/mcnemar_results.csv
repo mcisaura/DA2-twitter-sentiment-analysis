@@ -1,0 +1,7 @@
+split,model_a,model_b,a_only_correct,b_only_correct,discordant,mcnemar_chi2_continuity,mcnemar_p_value_approx
+full_test,LSTM Sequence Model,Linear SVM,10266,7541,17807,416.69994945807827,1.2756982643340279e-92
+full_test,LSTM Sequence Model,Logistic Regression,10090,7439,17529,400.6218266872041,4.032469209121042e-89
+full_test,LSTM Sequence Model,MLP Neural Baseline,17378,8119,25497,3361.594069890575,0.0
+full_test,Linear SVM,Logistic Regression,714,788,1502,3.5479360852197073,0.0596195644979214
+full_test,Linear SVM,MLP Neural Baseline,15086,8552,23638,1805.5710720027075,0.0
+full_test,Logistic Regression,MLP Neural Baseline,14869,8261,23130,1887.2654128837007,0.0

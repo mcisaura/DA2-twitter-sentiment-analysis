@@ -19,3 +19,6 @@ training.1600000.processed.noemoticon.csv
 # Project folders
 /docu/
 /Final Project/
+
+# Large generated artifacts
+/SentimentsProject.executed.ipynb

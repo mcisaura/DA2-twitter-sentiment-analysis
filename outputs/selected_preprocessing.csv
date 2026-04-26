@@ -1,0 +1,2 @@
+variant,description,tokenizer,stemming,lemmatization,advanced_normalization,training_rows,validation_rows,train_time_sec,accuracy,precision,recall,f1,macro_f1,roc_auc
+advanced_tweet_stem,Advanced normalization + TweetTokenizer + stemming,tweet,True,False,True,200000,40000,0.8920969159999856,0.794275,0.7895979924223786,0.80235,0.795922922401607,0.7942615846980436,0.87192566
